@@ -177,19 +177,19 @@ reusableFunction();
  * *Los Parametros son las variables que funcionan como marcadores, se colocán cuando se crea la función para indicar las posiciones de los valores reales.
  * *Los Argumentos son entonces, los vcalores reales que son pasados a la función.
  */
- function functionWithArgs(param1,param2) {
-  console.log(param1+param2);
+function functionWithArgs(param1, param2) {
+  console.log(param1 + param2);
 }
 
-functionWithArgs(1,2);
-functionWithArgs(7,9);
+functionWithArgs(1, 2);
+functionWithArgs(7, 9);
 
 //?---Return---
 /**
  * *La declaración de devolución o Return, se usa para enviar valores fuera de una función.
  */
- function timesFive (num) {
-  return num*5;
+function timesFive(num) {
+  return num * 5;
 }
 
 const res1 = timesFive(5);
@@ -197,3 +197,275 @@ console.log(res1);
 
 const res2 = timesFive(2);
 console.log(res2);
+
+//?---Ambito---
+/**
+ * *Se refiere a donde serán validas las variables creadas.
+ * *Al crear variables fuera de bloques, estas serán de "Ambito Global", de igual manera, si se crean variables de otra forma que no sea usando "let" y "const" también serán variables globales.
+ * *Por lo tanto, se recomienda siempre crearlas a través del uso de let y const.
+ */
+/**
+ * !Las declaraciones var tienen un ámbito global o un ámbito función/local, mientras que let y const tienen un ámbito de bloque.
+ * !Las variables var pueden ser modificadas y re-declaradas dentro de su ámbito; las variables let pueden ser modificadas, pero no re-declaradas; las variables const no pueden ser modificadas ni re-declaradas.
+ * !Todas ellas se elevan a la parte superior de su ámbito. Pero mientras que las variables var se inicializan con undefined, let y const no se inicializan.
+ * !Mientras que var y let pueden ser declaradas sin ser inicializadas, const debe ser inicializada durante la declaración.
+ */
+const myGlobal = 10;
+
+function fun1() {
+  oopsGlobal = 5;
+}
+
+function fun2() {
+  var output = "";
+  if (typeof myGlobal != "undefined") {
+    output += "myGlobal: " + myGlobal;
+  }
+  if (typeof oopsGlobal != "undefined") {
+    output += " oopsGlobal: " + oopsGlobal;
+  }
+  console.log(output);
+}
+
+fun1();
+fun2();
+
+/**
+ * *Se puede tener una variable global y local con el mismo nombre, cuando esto sucede la variable con el valor local tendra mayor importancia.
+ */
+const someVar = "Hat";
+
+function myFun() {
+  const someVar = "Head";
+  return someVar;
+}
+/**
+ * La función myFun devolverá la cadena Head porque está presente la versión local de la variable.
+ */
+
+//?---Funciones sin return---
+/**
+ * *Se pueden declarar funciones sin la declaración de devolución, esto da como resultado que se ejecute el código y modifique las variables globales, pero la función da como resultado "undefined".
+ */
+let sum = 0;
+
+function addThree() {
+  sum = sum + 3;
+}
+
+function addFive() {
+  sum += 5;
+}
+
+addThree();
+addFive();
+console.log(sum);
+
+//?---Asignando el resultado de una función a una variable---
+let processed = 0;
+
+function processArg(num) {
+  return (num + 3) / 5;
+}
+
+processed = processArg(7);
+
+console.log(processed);
+
+//?---Filas o queue---
+/**
+ * *Es una estructura que permite que los valores recien ingresados se posicionen al final, y los valores más antiguos sean extraídos primero.
+ */
+function nextInLine(arr, item) {
+  arr.push(item);
+  return arr.shift();
+}
+
+const testArr = [1, 2, 3, 4, 5];
+
+console.log("Before: " + JSON.stringify(testArr));
+console.log(nextInLine([2], 1));
+console.log("After: " + JSON.stringify(testArr));
+/**
+ * Un algoritmo que muestra el funcionamiento de una cola, un valor es agragado al final y seguido de eso, el primer valor es retirado y retornado de la función.
+ * !JSON.stringify()
+ * Se usa para mostrar de forma más entendible los arrays.
+ */
+
+//?---Valores Booleanos---
+/**
+ * *Los valores booleanos son true y false. Estos funcionan como interruptores y no deben escribirse entre comillas.
+ */
+
+//?---Estructuras Condicionnales---
+/**
+ * *Las estructuras condicionales son sentancias que se basan en la lógica y a través de condiciones  toman valores booleanos. Se entrará a la estructura cuando el valor sea "true", sin embargo, si es "false", saltará el bloque de instrucciones.
+ */
+function test(myCondition) {
+  if (myCondition) {
+    return "It was true";
+  }
+  return "It was false";
+}
+
+console.log(test(true));
+
+//?---Operadores de Comparación---
+
+//?---Operadore de Igualdad---
+/**
+ * *Podemos comparar si dos valores son equivalentes usando el operador de igualdad "==", de esta forma podemos evaluar si dos valores son equivalentes y obtener como resultado un true o un false.
+ * !Hay que tener en cuenta que a la hora de comparar usando este método se hace una coerción de valores, es decir, cambia el tipo de dato de uno de los valores al del otro.
+ */
+function testEqual(val) {
+  if (val == 12) {
+    return "Equal";
+  }
+  return "Not Equal";
+}
+
+testEqual(10);
+
+//?---Operadore de Estricta Igualdad---
+/**
+ * *Tenemos el operador de estricta igualdad "===", el cual a diferencia del de igualdad, no convierte los tipos de datos a uno en común.
+ */
+function testStrict(val) {
+  if (val === 7) {
+    return "Equal";
+  }
+  return "Not Equal";
+}
+
+testStrict(10);
+
+//?---Operadore de  Desigualdad---
+/**
+ * *El operador de desigualdad "!=" es lo opuesto al de igualdad. Devolverá un true cuando sean diferentes y un false cuando sean iguales. Este operador hace una coerción de valores, como el operador de igualdad.
+ */
+function testNotEqual(val) {
+  if (val != 99) {
+    return "Not Equal";
+  }
+  return "Equal";
+}
+
+testNotEqual(10);
+
+//?---Operadore de Estricta Desigualdad---
+/**
+ * *Operador de estricta desigualdad "!==".
+ */
+function testStrictNotEqual(val) {
+  if (val !== 17) {
+    return "Not Equal";
+  }
+  return "Equal";
+}
+
+testStrictNotEqual(10);
+
+//?---Operador Mayor que---
+/**
+ * *Este operador ">" compara si el valor posicionado a la izquierda es mayor que el de la derecha, de ser cierto devolverá un true, y un false de lo contrario. Hace coerción de valores.
+ */
+function testGreaterThan(val) {
+  if (val > 100) {
+    return "Over 100";
+  }
+
+  if (val > 10) {
+    return "Over 10";
+  }
+
+  return "10 or Under";
+}
+
+testGreaterThan(10);
+
+//?---Operador Mayor igual que---
+/**
+ * *Este operador ">=" compara si el número de la izquierda es mayor o igual que el de la derecha, de ser cierto devolverá un true, y un false de lo contrario. Hace coerción de valores.
+ */
+function testGreaterOrEqual(val) {
+  if (val >= 20) {
+    return "20 or Over";
+  }
+
+  if (val >= 10) {
+    return "10 or Over";
+  }
+
+  return "Less than 10";
+}
+
+testGreaterOrEqual(10);
+
+//?---Operador Menor que---
+/**
+ * *Este operador "<" compara si el número de la izquierda es menor que el de la derecha, de ser cierto devolverá un true, y un false de lo contrario. Hace coerción de valores.
+ */
+function testLessThan(val) {
+  if (val < 25) {
+    //
+    return "Under 25";
+  }
+
+  if (val < 55) {
+    //
+    return "Under 55";
+  }
+
+  return "55 or Over";
+}
+
+testLessThan(10);
+
+//?---Operador Menor igual que---
+/**
+ * *El operador "<=" compara si el valor de la izquierda es menor o igual que el de la derecha,de ser cierto devolverá un true, y un false de lo contrario. Hace coerción de valores.
+ */
+function testLessOrEqual(val) {
+  if (val <= 12) {
+    return "Smaller Than or Equal to 12";
+  }
+
+  if (val <= 24) {
+    return "Smaller Than or Equal to 24";
+  }
+
+  return "More Than 24";
+}
+
+testLessOrEqual(10);
+
+//?---Operadores Lógicos---
+
+//?---Operador AND---
+/**
+ * *Este operador "&&" evalua que se cumplan tanto la condición que este a la izquierda como la que esta a la derecha. En caso de que se cumplan, devuelve un true y en caso contrario un false.
+ */
+function testLogicalAnd(val) {
+  if (val <= 50 && val >= 25) {
+    return "Yes";
+  }
+
+  return "No";
+}
+
+testLogicalAnd(10);
+
+//?---Operador OR---
+/**
+ * *Este operador "||" evalua que la condición de la izquierda o la de la derecha se cumpla. En caso de que se cumplan, devuelve un true y en caso contrario un false.
+ */
+ function testLogicalOr(val) {
+
+  if (val < 10 || val > 20) {
+    return "Outside";
+  }
+
+  return "Inside";
+}
+
+testLogicalOr(15);
