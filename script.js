@@ -97,7 +97,7 @@ console.log(array[0]);
 const data = array[1];
 
 /**
- * *Usando la notación de corchetes podemos modificar los datos dentro del array, a diferencia del caso con las string, adicionalmete supueden modificar arrays aunque estos sean de tipo const.
+ * *Usando la notación de corchetes podemos modificar los datos dentro del array, a diferencia del caso con las string, adicionalmete se pueden modificar arrays aunque estos sean de tipo const.
  */
 const ourArray = [50, 40, 30];
 ourArray[0] = 15;
@@ -297,7 +297,7 @@ console.log("After: " + JSON.stringify(testArr));
  * *Los valores booleanos son true y false. Estos funcionan como interruptores y no deben escribirse entre comillas.
  */
 
-//?---Estructuras Condicionnales---
+//?---Estructuras Condicionnales if---
 /**
  * *Las estructuras condicionales son sentancias que se basan en la lógica y a través de condiciones  toman valores booleanos. Se entrará a la estructura cuando el valor sea "true", sin embargo, si es "false", saltará el bloque de instrucciones.
  */
@@ -459,8 +459,7 @@ testLogicalAnd(10);
 /**
  * *Este operador "||" evalua que la condición de la izquierda o la de la derecha se cumpla. En caso de que se cumplan, devuelve un true y en caso contrario un false.
  */
- function testLogicalOr(val) {
-
+function testLogicalOr(val) {
   if (val < 10 || val > 20) {
     return "Outside";
   }
@@ -469,3 +468,327 @@ testLogicalAnd(10);
 }
 
 testLogicalOr(15);
+
+//?---Else---
+/**
+ * *La sentencia "else", da la opción a que se ejecute un bloque de código en caso de que la condición no se cumpla.
+ */
+function testElse(val) {
+  let result = "";
+
+  if (val > 5) {
+    result = "Bigger than 5";
+  } else {
+    result = "5 or Smaller";
+  }
+
+  return result;
+}
+
+testElse(4);
+
+//?---Else if---
+/**
+ * *Las estructuras condicionales múltiples "else if", nos permiten evaluar muchas más condiciones.
+ */
+function testElseIf(val) {
+  if (val > 10) {
+    return "Greater than 10";
+  } else if (val < 5) {
+    return "Smaller than 5";
+  } else {
+    return "Between 5 and 10";
+  }
+}
+
+testElseIf(7);
+
+/**
+ * !El orden a la hora de evaluar condicioneses imporatante, un mal orden podría hacer que ciertas condiciones que debería cumplirse no lo hagan.
+ */
+const names = [
+  "Hole-in-one!",
+  "Eagle",
+  "Birdie",
+  "Par",
+  "Bogey",
+  "Double Bogey",
+  "Go Home!",
+];
+
+function golfScore(par, strokes) {
+  if (strokes == 1) {
+    return names[0];
+  } else if (strokes <= par - 2) {
+    return names[1];
+  } else if (strokes == par - 1) {
+    return names[2];
+  } else if (strokes == par) {
+    return names[3];
+  } else if (strokes == par + 1) {
+    return names[4];
+  } else if (strokes == par + 2) {
+    return names[5];
+  } else if (strokes >= par + 3) {
+    return names[6];
+  } else {
+    return "Change Me";
+  }
+}
+
+golfScore(5, 4);
+/**
+ * Ejercicio de ejemplo.
+ */
+
+//?---Estructura Switch---
+/**
+ * *Las sentencias "switch-case", se usan cuando existen muchas sentencias posibles, entonces se usa esta estructura para ejecutar únicamente la que coincide.
+ * !Esta estrucutra hace uso de la comparación de estricta igualdad "===".
+ * !Cada case debe tener un "break", para evitar que se sigan ejecutando todas las instrucciones.
+ */
+function caseInSwitch(val) {
+  let answer = "";
+  switch (val) {
+    case 1:
+      answer = "alpha";
+      break;
+    case 2:
+      answer = "beta";
+      break;
+    case 3:
+      answer = "gamma";
+      break;
+    case 4:
+      answer = "delta";
+      break;
+  }
+  return answer;
+}
+
+caseInSwitch(1);
+
+//?---Default---
+/**
+ * *Es una opción de "case" que se coloca al final, como opción predeterminada en caso de que se ingresen valores no establecidos.
+ */
+function switchOfStuff(val) {
+  let answer = "";
+  switch (val) {
+    case "a":
+      answer = "apple";
+      break;
+    case "b":
+      answer = "bird";
+      break;
+    case "c":
+      answer = "cat";
+      break;
+    default:
+      answer = "stuff";
+      break;
+  }
+
+  return answer;
+}
+
+switchOfStuff(1);
+
+/**
+ * *En ocaciones, cuando las respuestas dentro de un rango sean las mismas, se puede implementar un algoritmo como el siguiente:
+ */
+function sequentialSizes(val) {
+  let answer = "";
+  switch (val) {
+    case 1:
+    case 2:
+    case 3:
+      answer = "Low";
+      break;
+    case 4:
+    case 5:
+    case 6:
+      answer = "Mid";
+      break;
+    case 7:
+    case 8:
+    case 9:
+      answer = "High";
+      break;
+  }
+
+  return answer;
+}
+
+sequentialSizes(1);
+
+//!Podemos usar en el mismo switch diferentes tipos de datos (numbers y strings).
+
+/**
+ * *Podemos ahorrar mucho código usando un pequeño truco de validación como el siguiente.
+ */
+//Metodo 1
+function isEqual(a, b) {
+  if (a === b) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+//Metodo 2
+function isEqual(a, b) {
+  return a === b;
+}
+/**
+ * Ambos son equivalentes, y dan el mismo resultado. En el segundo método nos valemos de que todos los operadores de comparación devuelven "true" o "false", de esta forma logramos ahorrar mucho.
+ */
+//!Las funciones terminan en el momento en que se encuentran con un return, esto quiere decir que las instrucciones que aparezcan despues del return y sigan dentro de la función, no se ejecutarán.
+
+let count = 0;
+
+function cc(card) {
+  switch (card) {
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+      count++;
+      break;
+    case 7:
+    case 8:
+    case 9:
+      break;
+    case 10:
+    case "J":
+    case "Q":
+    case "K":
+    case "A":
+      count--;
+  }
+
+  if (count > 0) {
+    return count + " Bet";
+  } else {
+    return count + " Hold";
+  }
+}
+
+cc(2);
+cc(3);
+cc(7);
+cc("K");
+cc("A");
+/**
+ * Ejercicio de una funcion para contar cartas en el juego de blackjack.
+ */
+
+//?---Objetos---
+/**
+ * *Es una construcción, similar a un array, con la dijerencia de que no accedemos a sus datos a través de indices, sino usando sus properties. Se usan principalmente para establecer una estructura a la hora de representar objetos del mundo real.
+ */
+const cat = {
+  name: "Whiskers",
+  legs: 4,
+  tails: 1,
+  enemies: ["Water", "Dogs"],
+};
+
+//?---Notación de Puntos---
+/**
+ * *La notación de puntos es la forma a la que accedemos a laa propiedades de los objetos, si conocemos el nombre de la propiedad a la que queremos acceder. También podemos usar la notación de corchetes.
+ */
+const testObj = {
+  hat: "ballcap",
+  shirt: "jersey",
+  shoes: "cleats",
+};
+
+const hatValue = testObj.hat;
+const shirtValue = testObj.shirt;
+
+//?---Notación de Corchetes---
+/**
+ * *Es la segunda forma de acceder a las propiedades de un objeto, esta notación se usa, principalmente, cuando el nombre de la propiedad tiene espacios intermedios.
+ */
+const myObj = {
+  "Space Name": "Kirk",
+  "More Space": "Spock",
+  NoSpace: "USS Enterprise",
+};
+
+myObj["Space Name"];
+myObj["More Space"];
+myObj["NoSpace"];
+//!Cuando se usa esta notación SIEMPRE deben usarse comillas dobles o simples.
+
+/**
+ * *Otro uso de la notación de corchetes es para acceder a propiedades dentro de una variable.
+ */
+const dogs = {
+  Fido: "Mutt",
+  Hunter: "Doberman",
+  Snoopie: "Beagle",
+};
+
+const myDog = "Hunter";
+const myBreed = dogs[myDog];
+console.log(myBreed);
+/**
+ * Aqui lo que se esta haciendo es usar una variable para guardar el nombre de una propiedad, para luego usar la notación de corchetes para asignar a otra variable el valor de la propiedad llamando al objeto usando la variables. Finalmente, se muestra en pantalla la variable final que mostrará el valor de la propiedad declarada en un principio.
+ */
+
+const someObj = {
+  propName: "John",
+};
+
+function propPrefix(str) {
+  const s = "prop";
+  return s + str;
+}
+
+const someProp = propPrefix("Name");
+console.log(someObj[someProp]);
+/**
+ * Podemos usar esta notación para acceder de forma dinamica a las propiedades. En este ejemplo observamos como a travésde una función que nos retorna un valor podemos asignarselo a una variable, la cual usaremos para acceder a la propiedad de un objeto.
+ */
+//!Cuando usamos la notación de corchetes en variables, no las encerramos entre comillas, debido a que deseamos el valor que esta dentro de la variable, no el nombre de la variable en si.
+
+/**
+ * *Para actualizar las propiedades de los objetos, se hace de la siguiente forma. Podemos usar tanto notación de puntos como de corchetes.
+ */
+const myDogs = {
+  name: "Coder",
+  legs: 4,
+  tails: 1,
+  friends: ["freeCodeCamp Campers"],
+};
+
+myDogs.name = "Happy Coder";
+
+/**
+ * *Se pueden añadir nuevas propiedades a los objetos exactamente de la forma en la que modificabamos las propiedades existentes.
+ */
+
+const myDogo = {
+  name: "Happy Coder",
+  legs: 4,
+  tails: 1,
+  friends: ["freeCodeCamp Campers"],
+};
+
+myDogo.bark = "hee hee";
+
+/**
+ * *Para eliminar propiedades.
+ */
+const myDogi = {
+  name: "Happy Coder",
+  legs: 4,
+  tails: 1,
+  friends: ["freeCodeCamp Campers"],
+  bark: "woof",
+};
+
+delete myDogi.tails;
