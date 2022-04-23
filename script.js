@@ -688,6 +688,8 @@ cc("A");
 /**
  * *Es una construcción, similar a un array, con la dijerencia de que no accedemos a sus datos a través de indices, sino usando sus properties. Se usan principalmente para establecer una estructura a la hora de representar objetos del mundo real.
  */
+//!Usar SIEMPRE comillas en las propiedades de los objetos.
+//!Preferir notación de corchetes sobre notación de puntos.
 const cat = {
   name: "Whiskers",
   legs: 4,
@@ -792,3 +794,187 @@ const myDogi = {
 };
 
 delete myDogi.tails;
+
+/**
+ * *Podemos usar los objetos como almacenamientos también, cuando tenemos un rango limitado de valores. Podemos entonces, sustituir sentencias switch e if-else gracias a esta funcionalidad.
+ */
+function phoneticLookup(val) {
+  let result = "";
+
+  const lookup = {
+    alpha: "Adams",
+    bravo: "Boston",
+    charlie: "Chicago",
+    delta: "Denver",
+    echo: "Easy",
+    foxtrot: "Frank",
+  };
+
+  result = lookup[val];
+
+  return result;
+}
+
+phoneticLookup("charlie");
+/**
+ * En esta ocación, sustituimos una sentencia switch. Explicaré el funcionamiento del algoritmo. Empecemos desde el final, desde el momento en que es llamada la función phoneticLookup. Esta es invocada y se le pasa un parámetro; edentro de la función, encontamos la variable result declarada e inicializada, el objeto que servirá como nuestro almacenamiento de datos y una operación de asignación donde introducimos dentro de la variable result el valor de la propiedad que se encuentra dentro del objeto; para finalmente devolver ese valor a través del return.
+ */
+
+//?---Verificar las propiedades de un objeto---
+/**
+ * *Usando el metodo ".hasOwnProperty(propName)", podemos determinar si un objeto posee dicha propiedad. El método devuelve true o false si existe o no.
+ */
+function checkObj(obj, checkProp) {
+  const answer = obj.hasOwnProperty(checkProp);
+
+  if (answer == true) {
+    return obj[checkProp];
+  } else {
+    return "Not Found";
+  }
+}
+/**
+ * El anterior ejemplo es sobre una función que toma un objeto y se evalua si la propiedad existe en el objeto.
+ */
+
+//?---Objetos Complejos---
+/**
+ * *Son estructuras de datos basadosen objetos, donde se aprovecha la capacidad de los objetos de poder almacenar diferentes tipos de datos (num, strings, boolean, arrays, functions, etc).
+ */
+const myMusic = [
+  {
+    artist: "Billy Joel",
+    title: "Piano Man",
+    "release year": 1973,
+    formats: ["CD", "8T", "LP"],
+    gold: true,
+  },
+  {
+    artist: "Daddy Yankee",
+    title: "Legendaddy",
+    release_year: 2022,
+    formats: ["CD", "Spotify", "Apple Music"],
+  },
+];
+/**
+ * Procedo a explicar un poco el algoritmo. Como podemos observar tenemos un array compuesto por dos objetos. Un solo objeto es capaz< de almacenar muchos datos de diferentes tipos, por lo tanto, obtenemos un array bastante complejo con más de un tipo de dato e incluso, arrays anidados.
+ */
+
+//?---Objetos Anidados---
+/**
+ * *Como acceder a subpropiedades. Pdemos usar tanto notación de puntos como de corchetes, o incluso ambas.
+ */
+const myStorage = {
+  car: {
+    inside: {
+      "glove box": "maps",
+      "passenger seat": "crumbs",
+    },
+    outside: {
+      trunk: "jack",
+    },
+  },
+};
+
+let gloveBoxContents = undefined;
+
+gloveBoxContents = myStorage.car.inside["glove box"];
+
+//?---Arreglos Anidados---
+/**
+ * *Buscamos acceder a ciertos valores dentrode un arreglo que esta dentro de un objeto. Debemos combinar lo que hemos visto de notación de puntos y corchetes para trazar una ruta hacia los valores.
+ */
+const myPlants = [
+  {
+    type: "flowers",
+    list: ["rose", "tulip", "dandelion"],
+  },
+  {
+    type: "trees",
+    list: ["fir", "pine", "birch"],
+  },
+];
+
+const secondTree = myPlants[1].list[1];
+
+/**
+ * *Ejercicio: Se te da un objeto literal que representa una parte de tu colección de álbumes musicales. Cada álbum tiene un número de id único como clave y varias otras propiedades. No todos los álbumes tienen una información completa.
+ * *Empiezas con una función updateRecords la cual toma un objeto literal, records, que contiene el álbum musical de la colección, un id, prop (como artist o tracks), y value. Completa la función usando las reglas siguientes para modificar el objeto pasado a la función.
+ * *Tu función siempre debe devolver el objeto de colección de registros completo.
+ * *Si prop no es tracks y value no es una cadena vacía, actualiza o establece la propiedad prop del album a value.
+ * *Si prop es tracks pero el álbum no tiene una propiedad tracks, crea un arreglo vacío y agrégale value a él.
+ * *Si prop es tracks y value no es una cadena vacía, agrega value al final del arreglo de tracks existentes del álbum.
+ * *Si value es una cadena vacía, elimina esa propiedad prop del álbum.
+ * *Nota: Se usa una copia del objeto recordCollection para las pruebas.
+ */
+const recordCollection = {
+  2548: {
+    albumTitle: "Slippery When Wet",
+    artist: "Bon Jovi",
+    tracks: ["Let It Rock", "You Give Love a Bad Name"],
+  },
+  2468: {
+    albumTitle: "1999",
+    artist: "Prince",
+    tracks: ["1999", "Little Red Corvette"],
+  },
+  1245: {
+    artist: "Robert Palmer",
+    tracks: [],
+  },
+  5439: {
+    albumTitle: "ABBA Gold",
+  },
+};
+
+function updateRecords(records, id, prop, value) {
+  let exist = 0;
+  exist = records[id].hasOwnProperty(prop);
+
+  if (exist == false) {
+    switch (prop) {
+      case "artist":
+        if (exist == false) {
+          records[id][prop] = value;
+        }
+        break;
+      case "tracks":
+        if (exist == false) {
+          records[id][prop] = [value];
+        }
+        break;
+      case "albumTitle":
+        if (exist == false) {
+          records[id][prop] = value;
+        }
+        break;
+    }
+  } else {
+    if (value == "") {
+      delete records[id][prop];
+    } else {
+      records[id][prop].push(value);
+    }
+  }
+
+  return records;
+}
+updateRecords(recordCollection, 5439, "artist", "ABBA");
+/**
+ * A continuación, una solución más optima.
+ */
+function updateRecords(records, id, prop, value) {
+  if (prop !== 'tracks' && value !== "") {
+    records[id][prop] = value;
+  } else if (prop === "tracks" && records[id].hasOwnProperty("tracks") === false) {
+    records[id][prop] = [value];
+  } else if (prop === "tracks" && value !== "") {
+    records[id][prop].push(value);
+  } else if (value === "") {
+    delete records[id][prop];
+  }
+  return records;
+}
+/**
+ * Es literalmente, la interpretación de los requerimientos del ejercicio... ¿Qué no es eso lo que se pide?
+ */
