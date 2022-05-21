@@ -964,9 +964,12 @@ updateRecords(recordCollection, 5439, "artist", "ABBA");
  * A continuación, una solución más optima.
  */
 function updateRecords(records, id, prop, value) {
-  if (prop !== 'tracks' && value !== "") {
+  if (prop !== "tracks" && value !== "") {
     records[id][prop] = value;
-  } else if (prop === "tracks" && records[id].hasOwnProperty("tracks") === false) {
+  } else if (
+    prop === "tracks" &&
+    records[id].hasOwnProperty("tracks") === false
+  ) {
     records[id][prop] = [value];
   } else if (prop === "tracks" && value !== "") {
     records[id][prop].push(value);
@@ -978,3 +981,172 @@ function updateRecords(records, id, prop, value) {
 /**
  * Es literalmente, la interpretación de los requerimientos del ejercicio... ¿Qué no es eso lo que se pide?
  */
+
+//?---Bucles---
+
+/**
+ * *Los bucles se usan para repetir bloques de codigo un numero determinado de veces.
+ */
+
+//?---while---
+
+/**
+ * *Este bucle se repite siempre que la sentencia escrita al principio sea verdadera, una vez sea falsa terminara el bucle.
+ */
+
+const myArray1 = [];
+let i = 0;
+
+while (i <= 5) {
+  myArray1.unshift(i);
+  i++;
+}
+
+//?---for---
+
+/**
+ * *El ciclo for es el usualmente más usado debido a su estructura de tres sentencias "for (a;b;c)", donde "a" se usa como una sentencia de inicialización que se ejecuta normalmente antes de que el bucle comience y lo hace una sola vez, generalmente se usa para definir y configurar la variable del bucle; la sentencia "b" se usa como una sentencia condicional que es evaluada al principio de cada bucle, mientras esta sea "true" y al momento en que la condicion sea "false", al principio del bucle, se saldra de este; y la "c" es una sentenciaque se ejecuta al final de cada iteracion justo antes de la proxima comprobacion de la condicion y se usa comunmente para incrementar o reducir el contador.
+ */
+//!Podemos inicializar la variable de contador con cualquier numero
+
+const myArr = [2, 3, 4, 5, 6];
+let total = 0;
+
+for (let i = 0; i < myArr.length; i++) {
+  total += myArr[i];
+  console.log(total);
+}
+
+/**
+ * *Podemos anidadar bucles for para acceder a arrays multidimensionales.
+ */
+
+function multiplyAll(arr) {
+  let product = 1;
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = 0; j < arr[i].length; j++) {
+      product *= arr[i][j];
+    }
+  }
+  return console.log(product);
+}
+
+multiplyAll([
+  [1, 2],
+  [3, 4],
+  [5, 6, 7],
+]);
+
+//?---do while---
+
+/**
+ * *Este tipo de bucle primero ejecuta el bloque de instrucciones y luego evalua la condición. Mientras esta sea "true" seguira ejecutando el bloque. Es decir, lo que caracteriza a este bucle de otros es que siempre se ejecutará almenos una vez.
+ */
+
+const ourArraya = [];
+let ia = 0;
+
+do {
+  ourArraya.push(ia);
+  ia++;
+} while (ia < 5);
+
+//?---Recursividad---
+
+/**
+ * *La recursión es el concepto que una función puede expresarse en términos de sí misma, es decir, una función que se llama a si misma un número determinado de veces. Algo fundamental en las funciones recursivas, es la definición de un caso base. Este caso base es como una parada a la recursividad, para evitar bucles infinitos.
+ */
+
+function sum(arr, n) {
+  if (n <= 0) {
+    return 0;
+  } else {
+    return sum(arr, n - 1) + arr[n - 1];
+  }
+}
+
+console.log(sum([2, 3, 4], 2));
+
+//!Ejercicio pendiente
+
+//?---Números aleatorios---
+
+//?---Decimales---
+
+/**
+ * *Podemos generar numeros aleatorios en js usando la funcion Math.random(). Esta funcion solo devolverá numeros decimales entre 0 y 1. Algo que acotar, es que podrá obtenerse 0 como valor aleatorio, pero jamas un 1.
+ */
+
+function randomFraction() {
+  return Math.random();
+}
+
+console.log(randomFraction());
+
+//?---Enteros---
+
+/**
+ * *Para lograr obtener numeros enteros, debemos hacer uso de unos trucos.
+ * *1. Usa Math.random() para generar un decimal aleatorio.
+ * *2. Multiplica ese decimal aleatorio por 20 (u otro numero dependiendode que rango desees).
+ * *3. Utiliza otra función, Math.floor() para redondear el número hacia abajo a su número entero más cercano.
+ */
+
+function randomWholeNum() {
+  return Math.floor(Math.random() * 10);
+}
+
+//?---Números aleatorios entre un rango---
+
+/**
+ * *Para hacer esto, se requiere que se defina un numero maximo y un numero minimo para acotarlo.
+ */
+
+function randomRange(myMin, myMax) {
+  return Math.floor(Math.random() * (myMax - myMin + 1)) + myMin;
+}
+
+//?---parseInt---
+
+/**
+ * *Esta función transforma una cadena en un numero entero, pero, en caso de que el primer caracter no pueda transformarse a un entero devolvera NaN.
+ */
+
+function convertToInteger(str) {
+  return parseInt(str);
+}
+
+convertToInteger("56");
+
+//?---radix (base)---
+
+/**
+ * *La función parseInt puede admitir dos parametros, parseInt(string, radix), radix se refiere a la base, que va desde 2 hasta 36.
+ */
+
+function convertToInteger(str) {
+  return parseInt(str, 2);
+}
+
+convertToInteger("10011");
+
+//?---Operador condicional ternario---
+
+/**
+ * *Es una forma simplificada de usar operadores condicionales, la sintaxis es la siguiente:
+ * *a ? b : c, donde "a" es la condicion a valuar, "b" son las instrucciones que se ejecutaran en caso de que la condicion sea "true" y "c" es el codigo a ejecutar cuando la condicion devuelva "false".
+ */
+
+ function findGreater(a, b) {
+  return a > b ? "a is greater" : "b is greater or equal";
+}
+
+/**
+ * *Podemos usar condicionales ternarios en casos de if-else/if-else de la siguiente forma.
+ */
+
+ function findGreaterOrEqual(a, b) {
+  return (a === b) ? "a and b are equal" 
+    : (a > b) ? "a is greater" 
+    : "b is greater";
+}
